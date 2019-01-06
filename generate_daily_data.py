@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Dec 28 17:39:08 2018
+Created on Monday June 18 17:39:08 2018
 
 @author: DATAmadness
+https://datamadness.github.io
+https://github.com/datamadness/Support-ticket-data-generator
 """
 
 #Import required packages
