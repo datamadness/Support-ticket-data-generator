@@ -21,20 +21,21 @@ import matplotlib.dates as mdates
 
 #%% Function to generate custom support ticket data
 
-def generate_ticket_data():
+def generate_ticket_data(
     
-    #Provide input parameters
-    annual_minimum = 5                  # ~ annual daily minimum of tickets
-    annual_maximum = 50                 # ~ annual daily maximum of tickets
-    busy_months = np.array([2,7])       # typical busy montsh with high number of tickets (e.g. 2 = February)
-    seasonal_factor = 1                 # seasonal effect - 0 = none, 1 = large
-    weekend_factor = 1                  # Effect of weekends - 0 = no tickets on weekends, 1 = same as business day
-    accounts = 100                      # Number of customer accounts
-    logged_time_median_desired = 20     #desired median of the ticket length
-    logged_time_skewness_factor = 0.3   #ticket length skewness: [0,1] - 0 for default chi^2 distribution; 1 for large positive skew
-    logged_time_minimum = 5             #minimum logged time per ticket in minutes
-    
-    fileName = 'myTicketData.csv'       #If string is provided, data will be saved into *csv  of given name
+    #Optional input parameters
+    annual_minimum = 5,                  # ~ annual daily minimum of tickets
+    annual_maximum = 50,                 # ~ annual daily maximum of tickets
+    busy_months = np.array([2,7]),       # typical busy montsh with high number of tickets (e.g. 2 = February)
+    seasonal_factor = 1,                 # seasonal effect - 0 = none, 1 = large
+    weekend_factor = 1,                  # Effect of weekends - 0 = no tickets on weekends, 1 = same as business day
+    k = 4,                               # Degrees of freedom in Chi-squared distribution (logged time)
+    nonc = 2,                            # non-centrality for chi-squared (logged time)
+    accounts = 100,                      # Number of customer accounts
+    logged_time_median_desired = 20,     # desired median of the ticket length
+    logged_time_skewness_factor = 0.3,   # ticket length skewness: [0,1] - 0 for default chi^2 distribution; 1 for large positive skew
+    logged_time_minimum = 5,             # minimum logged time per ticket in minutes
+    fileName = 'myTicketData.csv' ):     # If string is provided, data will be saved into *csv  of given name, None if you do not want to save
     
     cols = ['ticketID','date','accountNumber','loggedTime']
     df = pd.DataFrame(columns = cols)
@@ -74,7 +75,7 @@ def generate_ticket_data():
             
         #get logged time for each ticket by calling the daily_tickets function
         if ticket_num > 0:
-            ticket_times = daily_tickets(ticket_num, logged_time_median_desired, logged_time_minimum, logged_time_skewness_factor)
+            ticket_times = daily_tickets(ticket_num, logged_time_median_desired, logged_time_minimum, logged_time_skewness_factor,k,nonc)
             ticketIDs=np.arange(ticketIDs[-1] + 1, ticketIDs[-1] + 1 + ticket_num)
             
             #Create temporary data frame with all data for single day
@@ -143,4 +144,16 @@ dataDescription(myTicketData)
 loggedTimeHist(myTicketData)
 plotWeeklyTickets(myTicketData)
 
-
+#%% Compare two daily ticket num plots
+f, (ax1, ax2) = plt.subplots(2,figsize = (12, 7), sharex = True, sharey = True)
+sns.lineplot(data = generate_ticket_data(weekend_factor=0.25).groupby([pd.Grouper(key='date', freq='D')])['loggedTime'].count(), ax = ax1)
+sns.lineplot(data = generate_ticket_data(weekend_factor=1).groupby([pd.Grouper(key='date', freq='D')])['loggedTime'].count(), ax = ax2)
+ax1.set_xlim([dt.date(2018, 1, 1), dt.date(2018, 2, 1)])
+ax2.set_xlim([dt.date(2018, 1, 1), dt.date(2018, 2, 1)])
+plt.xticks(rotation=45)
+ax1.set(ylabel = '# tickets per day')
+ax2.set(ylabel = '# tickets per day')
+ax1.set(title = 'weekend_factor = 0.25')
+ax2.set(title = 'weekend_factor = 1')
+plt.savefig('weekend_factor_comparison.png', bbox_inches='tight')  
+plt.show()
