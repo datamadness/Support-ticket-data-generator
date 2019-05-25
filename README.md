@@ -28,6 +28,6 @@ Advanced / Optional:
 * Non-centrality (impacts variance and kurtosis)
 
 ## Example
-Visit [this blogpost for more details](https://datamadness.github.io/Support-Data-Generator)
+Visit [this blogpost for more details](https://datamadness.github.io/Support-Data-Generator) about the statistical construction, controls and practical examples.
  
 ![Visualization of an example datase generated with the tol using various seasonality factor](https://datamadness.github.io/assets/images/support_data_generator/weekly_ticket_totals_comparison.png)
