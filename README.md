@@ -1,4 +1,4 @@
-# Statistical Support ticket data generator
+# Statistical Support Ticket Data Generator
 
 This code will allow you to input few numeric parameters and quickly generate custom support ticket datasets that reflect what you could expect in real world business operations.
 ## Feature Overview
