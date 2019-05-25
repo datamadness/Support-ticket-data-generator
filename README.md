@@ -1,7 +1,7 @@
-# Support ticket data generator
+# Statistical Support ticket data generator
 
 This code will allow you to input few numeric parameters and quickly generate custom support ticket datasets that reflect what you could expect in real world business operations.
-#### Feature Overview
+## Feature Overview
 
 * A python function to generate one year worth of support data with arbitrary amount of records(call repeatedly for x years worth of data)
 * Generates varied, but statistically relevant number of support tickets for each day of the year
@@ -10,7 +10,7 @@ This code will allow you to input few numeric parameters and quickly generate cu
 * Simulates realistic, but easy to control statistical distribution of logged time for each support ticket / case.
 * Control number of customer accounts to capture desired support volume vs customer base size
 
-#### Input parameters summary
+## Input parameters summary
 
 Daily ticket volume through the year controls:
 
@@ -27,4 +27,8 @@ Advanced / Optional:
 * Degrees of freedom
 * Non-centrality (impacts variance and kurtosis)
 
+## Example
 Visit [this blogpost for more details](https://datamadness.github.io/Support-Data-Generator)
+
+## Visualization of an example datase generated with the tol using various seasonality factor 
+https://datamadness.github.io/assets/images/support_data_generator/weekly_ticket_totals_comparison.png
