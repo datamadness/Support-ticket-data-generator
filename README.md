@@ -29,6 +29,5 @@ Advanced / Optional:
 
 ## Example
 Visit [this blogpost for more details](https://datamadness.github.io/Support-Data-Generator)
-
-## Visualization of an example datase generated with the tol using various seasonality factor 
-https://datamadness.github.io/assets/images/support_data_generator/weekly_ticket_totals_comparison.png
+ 
+![Visualization of an example datase generated with the tol using various seasonality factor](https://datamadness.github.io/assets/images/support_data_generator/weekly_ticket_totals_comparison.png)
